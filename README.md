@@ -4,7 +4,7 @@ This is a simple Java web app built using Spring Boot and OpenJDK 11.
 
 The app has been designed with cloud native demos & containers in mind, in order to provide a real working application for deployment, something more than "hello-world" but with the minimum of pre-reqs. It is not intended as a complete example of a fully functioning architecture or complex software design.
 
-Typical uses would be deployment to Kubernetes, demos of Docker, CI/CD (build pipelines are provided), deployment to cloud (Azure) monitoring, auto-scaling
+Typical uses would be deployment to Kubernetes, demos of Docker, CI/CD (build pipelines are provided), deployment to cloud (AWS) monitoring, auto-scaling
 
 The app has several basic pages accessed from the top navigation menu, some of which are only lit up when certain configuration variables are set (see 'Optional Features' below):
 
@@ -13,8 +13,8 @@ Features:
 - The **'Info'** page displays some system basic information (OS, platform, CPUs, IP address etc) and should detect if the app is running as a container or not.
 - The **'Tools'** page is useful in demos, and has options such a forcing CPU load (for autoscale demos), and error pages for use with App Insights
 - The **'mBeans'** page is a basic Java mBeans explorer, letting you inspect mBeans registered with the JVM and the properties they are exposing
-- Azure AD integration for user auth and sign-in (optional, see config below)
-- Azure App Insights for monitoring (optional, see config below)
+- Amazon Cognito support for user auth and sign-in (optional, see config below)
+- AWS X-Ray monitoring (optional, see config below)
 
 ![](https://user-images.githubusercontent.com/14982936/71443390-87cd0680-2702-11ea-857c-63d34a6e1306.png)
 
@@ -34,7 +34,7 @@ Live instances:
 - Be using Linux, WSL or MacOS, with bash, make etc
 - [Java 11+](https://adoptopenjdk.net/installation.html) - for running locally, linting, running tests etc
 - [Docker](https://docs.docker.com/get-docker/) - for running as a container, or image build and push
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux) - for deployment to Azure
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - for deployment to AWS
 
 Clone the project to any directory where you do development work
 
@@ -48,29 +48,29 @@ A standard GNU Make file is provided to help with running and building locally.
 
 ```text
 help                 💬 This help message
-lint                 🔎 Lint & format, will not fix but sets exit code on error
+lint                 🔎 Lint & format, will not fix but sets exit code on error 
 lint-fix             📜 Lint & format, will try to fix errors and modify code
-image                🔨 Build container image from Dockerfile
-push                 📤 Push container image to registry
-run                  🏃 Run the server locally using Python & Flask
-deploy               🚀 Deploy to Azure Web App
-undeploy             💀 Remove from Azure
-test                 🎯 Unit tests for server and frontend
-test-report          🎯 Unit tests for server and frontend (with report output)
-test-api             🚦 Run integration API tests, server must be running
+image                🔨 Build container image from Dockerfile 
+push                 📤 Push container image to registry 
+run                  🏃 Run BOTH components locally using Vue CLI and Go server backend
+deploy               🚀 Deploy to Amazon ECS
+undeploy             💀 Remove from AWS 
+test                 🎯 JUnit tests for application
+test-report          🎯 JUnit tests for application (with report output)
+test-api             🚦 Run integration API tests, server must be running 
 clean                🧹 Clean up project
 ```
 
 Make file variables and default values, pass these in when calling `make`, e.g. `make image IMAGE_REPO=blah/foo`
 
-| Makefile Variable | Default              |
-| ----------------- | -------------------- |
-| IMAGE_REG         | ghcr<span>.</span>io |
-| IMAGE_REPO        | benc-uk/java-demoapp |
-| IMAGE_TAG         | latest               |
-| AZURE_RES_GROUP   | temp-demoapps        |
-| AZURE_REGION      | uksouth              |
-| AZURE_SITE_NAME   | java-{git-sha}       |
+| Makefile Variable | Default                |
+| ----------------- | ---------------------- |
+| IMAGE_REG         | _none_                 |
+| IMAGE_REPO        | java-demoapp           |
+| IMAGE_TAG         | latest                 |
+| AWS_STACK_NAME    | java-demoapp           |
+| AWS_REGION        | us-west-2              |
+
 
 The application listens on port 8080 by default, but this can be set with the `PORT` environmental variable.
 
@@ -92,26 +92,15 @@ The app can easily be deployed to Kubernetes using Helm, see [deploy/kubernetes/
 
 # Optional Features
 
-## Application Insights
+### AWS X-Ray
 
-If you wish to enable Azure App Insights integration set the `azure_applicationinsights_instrumentationkey` environmental variable to the relevant workspace key
+🚧 Coming soon.
 
-## User Sign-In - Azure Active Directory
+### User Authentication with Amazon Cognito
 
-The _'Spring Boot Starter for Azure Active Directory'_ is included in the application and the main application nav bar has a 'User' button which when configured will sign users in via Azure AD. This is optional and not required for the app to start and run.
+🚧 Coming soon.
 
-**NOTE.** The Azure AD application must be registered with a reply/redirect URL which ends with `/login/oauth2/code/`, and have implicit grant enabled. The application must also be **granted admin consent** to several Graph APIs, this can limit which tenants the application can be registered in.
-
-See the Azure docs for more details
-https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory
-
-If running locally you can enabled Azure AD authentication by setting the following three environmental variables, before running `make run`
-
-```bash
-export azure_activedirectory_clientid='my-client-id'
-export azure_activedirectory_clientsecret='my-secret'
-export azure_activedirectory_tenantid='my-tenant'
-```
+Enable this by setting `COGNITO_IDENTITY_POOL_ID`.
 
 # GitHub Actions CI/CD
 
@@ -129,5 +118,6 @@ A working set of CI and CD release GitHub Actions workflows are provided `.githu
 
 # Updates
 
+- Jul 2022 - Modified for AWS (Michael Fischer)
 - Mar 2021 - Version bumps, unit tests
 - Dec 2019 - First version

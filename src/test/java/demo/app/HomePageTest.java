@@ -21,6 +21,6 @@ public class HomePageTest {
   @Test
   public void greetingShouldReturnDefaultMessage() throws Exception {
     assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class))
-        .contains("Get started with Azure");
+        .contains("Get started with AWS");
   }
 }

@@ -1,7 +1,7 @@
 #
 # Compile, build and package as single 'fat' JAR with Maven
 #
-FROM adoptopenjdk/openjdk16:alpine AS build
+FROM public.ecr.aws/amazoncorretto/amazoncorretto:11-al2-full AS build
 
 ARG APP_VERSION=2.1.7
 
@@ -21,7 +21,7 @@ RUN mv target/java-demoapp-${APP_VERSION}.jar target/java-demoapp.jar
 # Runtime image is just JRE + the fat JAR
 #
 
-FROM adoptopenjdk/openjdk16:alpine-jre
+FROM public.ecr.aws/amazoncorretto/amazoncorretto:11-al2-jdk
 
 WORKDIR /app
 COPY --from=build /build/target/java-demoapp.jar .

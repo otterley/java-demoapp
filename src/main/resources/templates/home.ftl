@@ -15,12 +15,12 @@
       <hr />
       <p class="lead">
         This is a simple Java web app built using Spring Boot. It has been designed with cloud
-        demos & containers in mind. Demonstrating capabilities such as auto scaling, deployment to Azure or Kubernetes, or anytime you want 
+        demos & containers in mind. Demonstrating capabilities such as auto scaling, deployment to AWS or Kubernetes, or anytime you want 
         something quick and lightweight to run & deploy 😄<br/><br/>Basic features:
         <ul>
             <li>System status / information view</li>
-            <li>Authentication via Azure Active Directory</li>            
-            <li>App Insights support</li>
+            <li>Authentication via Amazon Cognito</li>
+            <li>AWS X-Ray support</li>
           </ul>
       </p>
       <br />
@@ -39,13 +39,13 @@
 
       <p>
         <img src='/img/get-started.svg' width='58px' /> &nbsp;
-        <a target='_blank' href='https://docs.microsoft.com/en-us/azure/java/?view=azure-java-latest'
-          class="btn btn-success btn-lg">Get started with Azure &amp; Java</a>
+        <a target='_blank' href='https://aws.amazon.com/developer/language/java/'
+          class="btn btn-success btn-lg">Get started with AWS &amp; Java</a>
       </p>
 
 
       <br />
-      <h4>Microsoft <i class="fa fa-heart"></i> Open Source</h4>
+      <h4>AWS <i class="fa fa-heart"></i> Open Source</h4>
     </div>
 
   </div>
