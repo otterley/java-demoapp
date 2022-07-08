@@ -1,0 +1,34 @@
+#
+# See this Helm chart for all options
+# https://github.com/benc-uk/helm-charts/tree/master/webapp
+#
+
+image:
+  repository: 523443631803.dkr.ecr.us-west-2.amazonaws.com/java-demoapp
+  tag: latest
+  pullPolicy: Always
+
+service:
+  targetPort: 8080
+  type: NodePort
+
+ingress:
+  enabled: true
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  className: alb
+  tls:
+    enabled: false
+
+#
+# Create these secrets if you want to enable optional features, see secrets.sample.sh
+#
+# secretEnv:
+#   WEATHER_API_KEY:
+#     secretName: vuego-secrets
+#     secretKey: WEATHER_API_KEY
+#   AUTH_CLIENT_ID:
+#     secretName: vuego-demoapp
+#     secretKey: AUTH_CLIENT_ID
+
