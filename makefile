@@ -64,7 +64,7 @@ deploy: ## 🚀 Deploy to Amazon ECS
 	aws cloudformation deploy \
 		$(if $(CLOUDFORMATION_ROLE_ARN),--role-arn $(CLOUDFORMATION_ROLE_ARN),) \
 		--capabilities CAPABILITY_IAM \
-		--template-file $(REPO_DIR)/deploy/aws/ecs-service.yaml \
+		--template-file $(REPO_DIR)/deploy/aws/ecs-service-template.yaml \
 		--stack-name $(AWS_STACK_NAME) \
 		--parameter-overrides \
 			$(if $(ECS_CLUSTER),ClusterName=$(ECS_CLUSTER),) \
