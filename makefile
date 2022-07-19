@@ -5,10 +5,9 @@ AWS_AVAILABILITY_ZONES ?= $(AWS_REGION)a,$(AWS_REGION)b
 AWS_STACK_NAME ?= java-demoapp
 
 # Used by `image`, `push` & `deploy` targets, override as required
-IMAGE_REG ?= $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
-IMAGE_REPO ?= java-demoapp
+IMAGE_REPO ?= $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/java-demoapp
 IMAGE_TAG ?= latest$(if $(IMAGE_SUFFIX),-$(IMAGE_SUFFIX),)
-IMAGE_TAG_FULL := $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+IMAGE_TAG_FULL := $(IMAGE_REPO):$(IMAGE_TAG)
 
 # Used by `multiarch-*` targets
 PLATFORMS ?= linux/arm64,linux/amd64
@@ -19,6 +18,9 @@ TEST_HOST ?= localhost:8080
 # Don't change
 SRC_DIR := src
 REPO_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+
+# Set this to false on initial stack creation
+CREATE_SERVICE ?= true
 
 .PHONY: help lint lint-fix image push run deploy undeploy clean test test-api test-report .EXPORT_ALL_VARIABLES
 .DEFAULT_GOAL := help
@@ -34,10 +36,10 @@ lint-fix:  ## 📜 Lint & format, will try to fix errors and modify code
 
 image:  ## 🔨 Build container image from Dockerfile
 	docker build . --file build/Dockerfile \
-	--tag $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+	--tag $(IMAGE_TAG_FULL)
 
 push:  ## 📤 Push container image to registry
-	docker push $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+	docker push $(IMAGE_TAG_FULL)
 
 multiarch-image: ## 🔨 Build multi-arch container image from Dockerfile
 	docker buildx build . --file build/Dockerfile \
@@ -67,10 +69,11 @@ deploy: ## 🚀 Deploy to Amazon ECS
 		--parameter-overrides \
 			$(if $(ECS_CLUSTER),ClusterName=$(ECS_CLUSTER),) \
 			$(if $(ECS_SERVICE),ServiceName=$(ECS_SERVICE),) \
+			CreateService=$(CREATE_SERVICE) \
 			AvailabilityZones=$(AWS_AVAILABILITY_ZONES) \
 			CreateNATGateways=false \
 			CreatePrivateSubnets=false \
-			Image=$(IMAGE_TAG_FULL)
+			ImageTag=$(IMAGE_TAG)
 	@echo "### 🚀 App deployed & available here: http://`aws cloudformation describe-stacks --stack-name $(AWS_STACK_NAME) --query 'Stacks[0].Outputs[?OutputKey==\`AlbDnsUrl\`].OutputValue' --output text`"
 
 undeploy: ## 💀 Remove from AWS
