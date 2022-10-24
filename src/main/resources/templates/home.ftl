@@ -15,7 +15,7 @@
       <hr />
       <p class="lead">
         This is a simple Java web app built using Spring Boot. It has been designed with cloud
-        demos & containers in mind. Demonstrating capabilities such as auto scaling, deployment to AWS or Kubernetes, or anytime you want 
+        demos & containers in mind. Demonstrating capabilities such as auto scaling, deployment to AWS or Kubernetes, or anytime you want
         something quick and lightweight to run & deploy 😄<br/><br/>Basic features:
         <ul>
             <li>System status / information view</li>
@@ -27,12 +27,8 @@
 
       <p>
         <img src='/img/octocat.png' width='58px' /> &nbsp;
-        <a target='_blank' href='https://github.com/benc-uk/java-demoapp' class="btn btn-info btn-lg">Project on
+        <a target='_blank' href='https://github.com/otterley/java-demoapp' class="btn btn-info btn-lg">Project on
           Github</a>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <img src='/img/docker.png' width='58px' /> &nbsp;
-        <a target='_blank' href='https://hub.docker.com/r/bencuk/java-demoapp' class="btn btn-info btn-lg">Docker images
-          on Dockerhub</a>
       </p>
 
       <hr />

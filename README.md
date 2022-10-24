@@ -18,15 +18,6 @@ Features:
 
 ![](https://user-images.githubusercontent.com/14982936/71443390-87cd0680-2702-11ea-857c-63d34a6e1306.png)
 
-# Status
-
-![](https://img.shields.io/github/last-commit/benc-uk/java-demoapp) ![](https://img.shields.io/github/release-date/benc-uk/java-demoapp) ![](https://img.shields.io/github/v/release/benc-uk/java-demoapp) ![](https://img.shields.io/github/commit-activity/y/benc-uk/java-demoapp)
-
-Live instances:
-
-[![](https://img.shields.io/website?label=Hosted%3A%20Azure%20App%20Service&up_message=online&url=https%3A%2F%2Fjava-demoapp.azurewebsites.net%2F)](https://java-demoapp.azurewebsites.net/)  
-[![](https://img.shields.io/website?label=Hosted%3A%20Kubernetes&up_message=online&url=https%3A%2F%2Fjava-demoapp.kube.benco.io%2F)](https://java-demoapp.kube.benco.io/)
-
 # Building & Running Locally
 
 ### Pre-reqs
@@ -39,7 +30,7 @@ Live instances:
 Clone the project to any directory where you do development work
 
 ```
-git clone https://github.com/benc-uk/java-demoapp.git
+git clone https://github.com/otterley/java-demoapp.git
 ```
 
 ### Makefile
@@ -48,41 +39,33 @@ A standard GNU Make file is provided to help with running and building locally.
 
 ```text
 help                 💬 This help message
-lint                 🔎 Lint & format, will not fix but sets exit code on error 
+lint                 🔎 Lint & format, will not fix but sets exit code on error
 lint-fix             📜 Lint & format, will try to fix errors and modify code
-image                🔨 Build container image from Dockerfile 
-push                 📤 Push container image to registry 
+image                🔨 Build container image from Dockerfile
+push                 📤 Push container image to registry
 run                  🏃 Run BOTH components locally using Vue CLI and Go server backend
 deploy               🚀 Deploy to Amazon ECS
-undeploy             💀 Remove from AWS 
+undeploy             💀 Remove from AWS
 test                 🎯 JUnit tests for application
 test-report          🎯 JUnit tests for application (with report output)
-test-api             🚦 Run integration API tests, server must be running 
+test-api             🚦 Run integration API tests, server must be running
 clean                🧹 Clean up project
 ```
 
 Make file variables and default values, pass these in when calling `make`, e.g. `make image IMAGE_REPO=blah/foo`
 
-| Makefile Variable | Default                |
-| ----------------- | ---------------------- |
-| IMAGE_REG         | _none_                 |
-| IMAGE_REPO        | java-demoapp           |
-| IMAGE_TAG         | latest                 |
-| AWS_STACK_NAME    | java-demoapp           |
-| AWS_REGION        | us-west-2              |
+| Makefile Variable | Default      |
+| ----------------- | ------------ |
+| IMAGE_REG         | _none_       |
+| IMAGE_REPO        | java-demoapp |
+| IMAGE_TAG         | latest       |
+| AWS_STACK_NAME    | java-demoapp |
+| AWS_REGION        | us-west-2    |
 
 
 The application listens on port 8080 by default, but this can be set with the `PORT` environmental variable.
 
 # Containers
-
-Public container image is [available on GitHub Container Registry](https://github.com/users/benc-uk/packages/container/package/java-demoapp)
-
-Run in a container with:
-
-```bash
-docker run --rm -it -p 8080:8080 ghcr.io/benc-uk/java-demoapp:latest
-```
 
 Should you want to build your own container, use `make image` and the above variables to customise the name & tag.
 
@@ -101,20 +84,6 @@ The app can easily be deployed to Kubernetes using Helm, see [deploy/kubernetes/
 🚧 Coming soon.
 
 Enable this by setting `COGNITO_IDENTITY_POOL_ID`.
-
-# GitHub Actions CI/CD
-
-A working set of CI and CD release GitHub Actions workflows are provided `.github/workflows/`, automated builds are run in GitHub hosted runners
-
-### [GitHub Actions](https://github.com/benc-uk/python-demoapp/actions)
-
-[![](https://img.shields.io/github/workflow/status/benc-uk/java-demoapp/CI%20Build%20App)](https://github.com/benc-uk/java-demoapp/actions?query=workflow%3A%22CI+Build+App%22)
-
-[![](https://img.shields.io/github/workflow/status/benc-uk/java-demoapp/CD%20Release%20-%20AKS?label=release-kubernetes)](https://github.com/benc-uk/java-demoapp/actions?query=workflow%3A%22CD+Release+-+AKS%22)
-
-[![](https://img.shields.io/github/workflow/status/benc-uk/java-demoapp/CD%20Release%20-%20Webapp?label=release-azure)](https://github.com/benc-uk/java-demoapp/actions?query=workflow%3A%22CD+Release+-+Webapp%22)
-
-[![](https://img.shields.io/github/last-commit/benc-uk/java-demoapp)](https://github.com/benc-uk/java-demoapp/commits/master)
 
 # Updates
 

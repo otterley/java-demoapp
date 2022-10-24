@@ -6,9 +6,9 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:11-al2-full AS build
 ARG APP_VERSION=2.1.7
 
 LABEL Name="Java SpringBoot Demo App" Version=2.1.7
-LABEL org.opencontainers.image.source = "https://github.com/benc-uk/java-demoapp"
+LABEL org.opencontainers.image.source = "https://github.com/otterley/java-demoapp"
 
-WORKDIR /build 
+WORKDIR /build
 COPY .mvn ./.mvn
 COPY mvnw ./mvnw
 COPY pom.xml .
@@ -25,6 +25,6 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:11-al2-jdk
 
 WORKDIR /app
 COPY --from=build /build/target/java-demoapp.jar .
- 
+
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "java-demoapp.jar"]
