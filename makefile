@@ -58,8 +58,8 @@ multiarch-manifest: ## 📤 Build and push multi-arch manifest to registry
 		$(foreach suffix,$(IMAGE_SUFFIXES),$(IMAGE_TAG_FULL)-$(suffix))
 	docker manifest push $(IMAGE_TAG_FULL)
 
-run:  ## 🏃 Run BOTH components locally using Vue CLI and Go server backend
-	./mvnw spring-boot:run
+run:  ## 🏃 Run application in Docker container, exposing port 8080
+	docker run --rm -p 8080:8080 $(IMAGE_TAG_FULL)
 
 deploy: ## 🚀 Deploy to Amazon ECS
 	aws cloudformation deploy \
