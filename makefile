@@ -5,6 +5,7 @@ AWS_AVAILABILITY_ZONES ?= $(AWS_REGION)a,$(AWS_REGION)b
 AWS_STACK_NAME ?= java-demoapp
 
 # Used by `image`, `push` & `deploy` targets, override as required
+IMAGE_REPO ?= $(JAVA_WEBAPP_REPO)
 IMAGE_REPO ?= $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/java-demoapp
 IMAGE_TAG ?= latest$(if $(IMAGE_SUFFIX),-$(IMAGE_SUFFIX),)
 IMAGE_TAG_FULL := $(IMAGE_REPO):$(IMAGE_TAG)
