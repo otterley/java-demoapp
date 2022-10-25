@@ -148,6 +148,9 @@ kubectl create -f \
     https://raw.githubusercontent.com/aws/karpenter/${KARPENTER_VERSION}/charts/karpenter/crds/karpenter.sh_provisioners.yaml
 kubectl apply -f /tmp/karpenter.yaml
 
+echo 'sleeping 30 seconds while waiting for Karpenter to launch'
+sleep 30
+
 cat <<EOF | kubectl apply -f -
 apiVersion: karpenter.sh/v1alpha5
 kind: Provisioner
