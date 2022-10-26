@@ -3,7 +3,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   ClusterName:
     Type: String
-    Default: lab2
+    Default: lab
 
   TargetAverageCPU:
     Type: Number
