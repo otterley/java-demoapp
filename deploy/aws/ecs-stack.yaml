@@ -400,6 +400,19 @@ Resources:
           ToPort: 8080
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
 
+  ECSTaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: !Sub ecs-tasks.${AWS::URLSuffix}
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+
   X86TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
@@ -413,7 +426,7 @@ Resources:
               HostPort: 8080
               Protocol: tcp
       Family: java-demoapp-x86
-      ExecutionRoleArn: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ecsTaskExecutionRole
+      ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - EC2
@@ -484,7 +497,7 @@ Resources:
               HostPort: 8080
               Protocol: tcp
       Family: java-demoapp-arm64
-      ExecutionRoleArn: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/ecsTaskExecutionRole
+      ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - EC2
