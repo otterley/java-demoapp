@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
+  ECRRepositoryName:
+    Type: String
+    Description: Repository name for ECR
+    MinLength: 1
+    Default: "javawebapp"
   AvailabilityZones:
     Description: 'List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved.'
     Type: List<AWS::EC2::AvailabilityZone::Name>
@@ -265,17 +270,17 @@ Resources:
           - PrivateSubnetATag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
   PrivateSubnet2A:
     Condition: PrivateSubnetsCondition
     Type: AWS::EC2::Subnet
@@ -290,17 +295,17 @@ Resources:
           - PrivateSubnetATag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
   PrivateSubnet3A:
     Condition: PrivateSubnets&3AZCondition
     Type: AWS::EC2::Subnet
@@ -315,17 +320,17 @@ Resources:
           - PrivateSubnetATag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PrivateSubnetATag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PrivateSubnetATag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PrivateSubnetATag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
   PublicSubnet1:
     Condition: PublicSubnetsCondition
     Type: AWS::EC2::Subnet
@@ -345,17 +350,17 @@ Resources:
           - PublicSubnetTag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
       MapPublicIpOnLaunch: true
   PublicSubnet2:
     Condition: PublicSubnetsCondition
@@ -376,17 +381,17 @@ Resources:
           - PublicSubnetTag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
       MapPublicIpOnLaunch: true
   PublicSubnet3:
     Condition: PublicSubnets&3AZCondition
@@ -407,17 +412,17 @@ Resources:
           - PublicSubnetTag1Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag1']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag1']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag2Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag2']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag2']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
         - !If
           - PublicSubnetTag3Condition
           - Key: !Select ['0', !Split ['=', !Ref 'PublicSubnetTag3']]
             Value: !Select ['1', !Split ['=', !Ref 'PublicSubnetTag3']]
-          - !Ref 'AWS::NoValue'
+          - !Ref "AWS::NoValue"
       MapPublicIpOnLaunch: true
   PrivateSubnet1ARouteTable:
     Condition: PrivateSubnetsCondition
@@ -581,15 +586,11 @@ Resources:
         - Key: Name
           Value: NATGateway3
 
-  ImageRepo:
-    Type: AWS::ECR::Repository
-    Properties:
-      RepositoryName: java-demoapp
   EcsCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterName:
-        !If [HasClusterNameCondition, !Ref ClusterName, !Ref AWS::NoValue]
+        !If [HasClusterNameCondition, !Ref ClusterName, !Ref "AWS::NoValue"]
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
@@ -636,12 +637,12 @@ Resources:
       Family: !Join
         - ''
         - - !Ref 'AWS::StackName'
-          - '-java-demoapp'
+          - '-javawebapp'
       ContainerDefinitions:
         - Name: java-demoapp
           Cpu: '10'
           Essential: 'true'
-          Image: !Join [':', [!GetAtt ImageRepo.RepositoryUri, !Ref ImageTag]]
+          Image: !Join [':', [!Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepositoryName}", !Ref ImageTag]]
           Memory: '300'
           LogConfiguration:
             LogDriver: awslogs
@@ -747,8 +748,7 @@ Resources:
     Condition: CreateServiceCondition
     Properties:
       Cluster: !Ref EcsCluster
-      ServiceName: !If [HasServiceNameCondition, !Ref ServiceName, !Ref AWS::NoValue]
-      DesiredCount: '1'
+      ServiceName: !If [HasServiceNameCondition, !Ref ServiceName, !Ref "AWS::NoValue"]
       LoadBalancers:
         - ContainerName: java-demoapp
           ContainerPort: '8080'
@@ -822,7 +822,7 @@ Resources:
 
 Outputs:
   ImageRepo:
-    Value: !GetAtt ImageRepo.RepositoryUri
+    Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ECRRepositoryName}"
     Export:
       Name: !Sub '${AWS::StackName}-RepositoryUri'
   Service:

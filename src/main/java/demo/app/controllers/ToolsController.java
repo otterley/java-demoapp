@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public final class ToolsController {
   /**
    * CheckStyle forced me to add all these comments.
-   * 
+   *
    * @return Who cares
    */
   static final int MAX_ERR = 6;
 
   /**
    * Tools page.
-   * 
+   *
    * @return The named view
    */
   @GetMapping("/tools")
@@ -28,7 +28,7 @@ public final class ToolsController {
 
   /**
    * Force a fake error page.
-   * 
+   *
    * @return The named view
    */
   @GetMapping("/tools/error")
@@ -59,7 +59,7 @@ public final class ToolsController {
 
   /**
    * Force a CPU load spike.
-   * 
+   *
    * @param model something
    * @return The named view
    */
@@ -67,7 +67,7 @@ public final class ToolsController {
   public String cpuLoad(final Model model) {
     long start = java.lang.System.currentTimeMillis();
     for (int i = 0; i < 100000000.0; i++) {
-      Math.pow(9000.0, 9000.0);
+      Math.sin(45.0);
     }
     long elapsed = java.lang.System.currentTimeMillis() - start;
 
