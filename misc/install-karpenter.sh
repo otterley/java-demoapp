@@ -163,6 +163,9 @@ spec:
     securityGroupSelector:
       karpenter.sh/discovery: ${CLUSTER_NAME}
   requirements:
+  - key: karpenter.k8s.aws/instance-category
+    operator: In
+    values: ["c", "m", "r"]
   - key: karpenter.sh/capacity-type
     operator: In
     values:
