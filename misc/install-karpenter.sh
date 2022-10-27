@@ -177,9 +177,13 @@ spec:
     - arm64
 EOF
 
-echo "Don't forget to run `kubectl -n kube-system edit configmap aws-auth` and add the following below the existing groups entry:"
-
 cat <<EOF
+Don't forget to run
+
+kubectl -n kube-system edit configmap aws-auth
+
+and add the following below the existing groups entry:
+
     - groups:
       - system:bootstrappers
       - system:nodes
